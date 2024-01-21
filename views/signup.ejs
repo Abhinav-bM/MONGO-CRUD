@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body class="d-flex justify-content-center" style="background-color: grey;">
+  
+  <div class="col-4" style="margin-top: 100px;">
+
+    <form class="form-control text-center" style=" background-color: grey;" action="/signup" method="post">
+
+      <h1 class="text-light mb-4">Sign Up</h1>
+
+      <strong><small class="text-danger" id="userNameAlready"><%= userNameAlready %></small></strong><br>
+  
+      <label class="text-light mb-2" for="username">Username</label><br>
+      <input class="form-control" type="text" id="username" name="username" ><br>
+      <strong><small class="text-danger" id="usernameErr"></small></strong><br>
+   
+      <label class="text-light mb-2" for="email">Email</label><br>
+      <input class="form-control" type="email" id="email" name="email" ><br>
+      <strong><small class="text-danger" id="emailErr"></small></strong><br>
+  
+      <label class="text-light mb-2" for="password">Password</label><br>
+      <input class="form-control" type="password" id="password" name="password"><br>
+      <strong><small class="text-danger" id="passwordErr"></small></strong><br><br>
+  
+      <button class="rounded col-3 bg-light" onclick="validateForm(event)" type="submit" style="border: none; height: 40px;" >Sign Up</button>
+  
+    </form>
+
+  </div>
+
+
+  <script>
+     function validateForm(event) {
+
+       let username = document.getElementById('username').value;
+       let email = document.getElementById('email').value;
+       let password = document.getElementById('password').value;
+ 
+       let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+       let passwordRegex = /^.{8,}$/;
+ 
+       let validEmail = emailRegex.test(email);
+       let validPassword = passwordRegex.test(password);
+ 
+       if (username.length < 4) {
+         document.getElementById('usernameErr').innerText = "Enter a valid username (at least 4 characters)";
+       } else {
+         document.getElementById('usernameErr').innerText = ""; // Clear the error message
+       }
+ 
+       if (!validEmail) {
+         document.getElementById('emailErr').innerText = "Enter a valid Email";
+       } else {
+         document.getElementById('emailErr').innerText = ""; // Clear the error message
+       }
+ 
+       if (!validPassword) {
+         document.getElementById('passwordErr').innerText = "Enter a valid password (at least 8 characters)";
+       } else {
+         document.getElementById('passwordErr').innerText = ""; // Clear the error message
+       }
+ 
+       if (!validEmail || username.length < 4 || !validPassword) {
+         event.preventDefault();
+         return false;
+       }
+ 
+       return true;
+     }
+ 
+     // Attach the validateForm function to the input event of each input field
+     document.getElementById('username').addEventListener('input', validateForm);
+     document.getElementById('email').addEventListener('input', validateForm);
+     document.getElementById('password').addEventListener('input', validateForm);
+   </script>
+   
+</body>
+</html>
