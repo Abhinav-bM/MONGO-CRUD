@@ -140,6 +140,8 @@ app.post("/edit", async (req, res) => {
     const userId = req.session.user._id; // Extract userid from session
 
     // user from database using the ID
+    const user = await User.findById(userId);
+
 
     if (user) {
       // Update the user details in the database
